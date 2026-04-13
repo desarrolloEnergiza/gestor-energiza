@@ -1,0 +1,134 @@
+# genesis.config.yml
+# Contrato entre Proyecto Génesis (base) y un proyecto derivado (hijo).
+# Este archivo permite: presets, reglas documentales, y automatización asistida.
+
+genesis:
+  # Identidad del estándar
+  name: "ProyectoGenesis"
+  spec_version: "1.0"
+
+  # Cómo se consume Génesis
+  # - copy: se copia la base y se trabaja independiente
+  # - fork: se mantiene relación con repo base (upstream)
+  # - template: se crea desde un repositorio plantilla
+  adoption_mode: "template"
+
+  # Fuente/origen del estándar (si aplica; puede estar vacío si todo es local)
+  upstream:
+    enabled: false
+    repo_url: ""
+    branch: "main"
+    sync_strategy: "manual" # manual | scheduled
+
+project:
+  # Identidad del proyecto hijo
+  name: "web_energizavirtual"
+  slug: "web-energizavirtual"
+  description: "Plataforma comercial para Energiza Virtual."
+  type: "webapp" # webapp | api | internal-tool | mvp
+  stage: "new" # new | migration | rewrite
+  owners:
+    - name: "Antigravity (AI)"
+      role: "tech-lead"
+      contact: ""
+
+paths:
+  # Dónde vive la documentación y plantillas dentro del repo
+  docs_root: "docs"
+  templates_root: "docs/_templates"
+  adr_dir: "docs/02-architecture/decisions"
+  features_dir: "docs/06-features"
+  database_docs_dir: "docs/05-database"
+  security_docs_dir: "docs/04-security"
+
+preset:
+  # Este bloque es un “mirror” resumido del project-preset.md
+  # Sirve para tooling y validaciones automáticas.
+  stack:
+    backend: "laravel"
+    php: "8.2"
+    laravel: "12"
+    frontend_mode: "inertia" # blade-alpine | inertia | livewire | spa
+    ui: ["tailwind", "react", "typescript"]
+
+  auth:
+    starter: "breeze" # breeze | jetstream | fortify | custom
+    methods: ["email"] # email | social | 2fa
+    session: "cookies" # cookies | tokens
+
+  authorization:
+    model: "roles-permissions" # roles-simple | roles-permissions | policies-custom
+    library: "spatie-permission" # spatie-permission | custom
+
+  database:
+    engine: "mysql" # mysql | postgres | other
+    strategy: ["migrations", "seeds"] # migrations, views, seeds
+
+  security:
+    audit_logging: true
+    audit_library: "spatie-activitylog" # spatie-activitylog | custom | none
+
+documentation:
+  # Qué tan “estricto” será el control documental
+  mode: "assisted" # assisted | strict | off
+  required_files:
+    - "docs/index.md"
+    - "docs/00-overview/project-preset.md"
+    - "docs/00-overview/project-creation-flow.md"
+    - "docs/00-overview/project-readiness-checklist.md"
+    - "docs/02-architecture/decisions/README.md"
+
+  # Reglas: cuando cambie X, revisar/actualizar Y
+  # (esto no “escribe todo solo”; genera tareas/recordatorios/checks)
+  rules:
+    - name: "DB changes -> database docs"
+      trigger:
+        paths:
+          - "database/migrations/**"
+          - "database/seeders/**"
+      require_update:
+        any_of:
+          - "docs/05-database/migrations.md"
+          - "docs/05-database/seeds.md"
+
+    - name: "Auth/perm changes -> security docs"
+      trigger:
+        paths:
+          - "app/Policies/**"
+          - "app/Models/**"
+          - "database/seeders/**"
+      require_update:
+        any_of:
+          - "docs/04-security/auth.md"
+          - "docs/04-security/roles-permissions.md"
+
+    - name: "New routes/controllers -> feature docs"
+      trigger:
+        paths:
+          - "routes/**"
+          - "app/Http/Controllers/**"
+      require_update:
+        any_of:
+          - "docs/06-features/modules/**"
+
+automation:
+  # En MVP: validación + generación de “TODOs” / reportes
+  # Más adelante puede integrar IA o pipelines.
+  enabled: true
+
+  # Validaciones mínimas (pre-commit/CI cuando exista)
+  validators:
+    markdown_links: true
+    required_docs: true
+    adr_format: false
+
+  # Generación asistida (MVP sano): reportes y plantillas.
+  generators:
+    docs_status_report: true
+    feature_stub_on_new_module: false
+    adr_stub_on_stack_change: false
+
+  commands:
+  instalacion:
+    run: "./instalacion"
+    description: "Instala dependencias (composer/npm), prepara .env y construye frontend."
