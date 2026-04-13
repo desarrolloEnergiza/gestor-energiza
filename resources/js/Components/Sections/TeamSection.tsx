@@ -64,7 +64,8 @@ export default function TeamSection() {
                                     <img
                                         src={member.image}
                                         alt={member.name}
-                                        className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                        className="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                                        loading="lazy"
                                         onError={(e) => {
                                             e.currentTarget.style.display =
                                                 "none";

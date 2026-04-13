@@ -67,6 +67,7 @@ export default function FeatureSection() {
                             src="/images/mockup_2.png"
                             alt="Metodología Energiza"
                             className="w-full h-auto rounded-none"
+                            loading="lazy"
                         />
                     </div>
 

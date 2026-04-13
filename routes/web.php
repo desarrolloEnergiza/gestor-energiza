@@ -18,6 +18,14 @@ Route::get('/nosotros', function () {
     return Inertia::render('About');
 });
 
+Route::get('/terminos-y-condiciones', function () {
+    return Inertia::render('Legal/Terms');
+})->name('terms');
+
+Route::get('/politica-de-privacidad', function () {
+    return Inertia::render('Legal/Privacy');
+})->name('privacy');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

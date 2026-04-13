@@ -66,6 +66,7 @@ export default function ProjectsSection() {
                                         src={project.image} 
                                         alt={project.title}
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        loading="lazy"
                                     />
                                     {/* Overlay with Icon */}
                                     <div className="absolute top-4 left-4">

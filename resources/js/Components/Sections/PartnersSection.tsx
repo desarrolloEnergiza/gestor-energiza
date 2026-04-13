@@ -37,6 +37,7 @@ export default function PartnersSection() {
                                 src={partner.logo}
                                 alt={partner.name}
                                 className="max-w-[180px] lg:max-w-[250px] max-h-[80px] lg:max-h-[100px] w-auto h-auto object-contain"
+                                loading="lazy"
                             />
                         </div>
                     ))}

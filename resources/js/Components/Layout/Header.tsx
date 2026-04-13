@@ -74,36 +74,40 @@ export default function Header() {
                         </button>
                     </div>
                 </div>
+            </div>
 
-                {/* Mobile Menu */}
-                <div
-                    className={`lg:hidden ${mobileMenuOpen ? "block" : "hidden"} mt-4 pb-4 border-t border-gray-100`}
-                >
-                    <div className="flex flex-col space-y-4 pt-4">
-                        <Link
-                            href="/"
-                            className="text-gray-800 font-medium"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            Inicio
-                        </Link>
-                        <a
-                            href="https://aula.energizavirtual.cl"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-800 font-medium"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            Aula Virtual
-                        </a>
-                        <Link
-                            href="/nosotros"
-                            className="text-gray-800 font-medium"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            Nosotros
-                        </Link>
-                    </div>
+            {/* Mobile Menu (Absolute Dropdown) */}
+            <div
+                className={`lg:hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t border-gray-100 transition-all duration-300 ease-in-out transform ${
+                    mobileMenuOpen 
+                        ? "opacity-100 translate-y-0 visible" 
+                        : "opacity-0 -translate-y-4 invisible"
+                }`}
+            >
+                <div className="container mx-auto px-6 py-8 flex flex-col space-y-6">
+                    <Link
+                        href="/"
+                        className="text-gray-900 text-xl font-bold border-b border-gray-50 pb-2 hover:text-primary transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        Inicio
+                    </Link>
+                    <a
+                        href="https://aula.energizavirtual.cl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-900 text-xl font-bold border-b border-gray-50 pb-2 hover:text-primary transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        Aula Virtual
+                    </a>
+                    <Link
+                        href="/nosotros"
+                        className="text-gray-900 text-xl font-bold border-b border-gray-50 pb-2 hover:text-primary transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        Nosotros
+                    </Link>
                 </div>
             </div>
         </nav>

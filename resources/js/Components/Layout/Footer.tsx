@@ -10,7 +10,7 @@ export default function Footer() {
                         <div className="mb-6">
                             <Link href="/">
                                 <img
-                                    className="h-14 lg:h-20 w-auto"
+                                    className="h-28 w-auto"
                                     src="/images/energiza_footer.png"
                                     alt="Energiza Virtual Logo"
                                 />
@@ -81,18 +81,18 @@ export default function Footer() {
                         Todos los derechos reservados.
                     </p>
                     <div className="flex gap-6 mt-4 md:mt-0">
-                        <a
-                            href="#"
+                        <Link
+                            href="/terminos-y-condiciones"
                             className="hover:text-white transition-colors text-sm"
                         >
                             Términos y condiciones
-                        </a>
-                        <a
-                            href="#"
+                        </Link>
+                        <Link
+                            href="/politica-de-privacidad"
                             className="hover:text-white transition-colors text-sm"
                         >
                             Política de privacidad
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
