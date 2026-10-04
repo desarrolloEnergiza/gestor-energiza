@@ -20,6 +20,10 @@ Route::get('/nosotros', function () {
     return Inertia::render('About');
 });
 
+Route::get('/ranking', function () {
+    return Inertia::render('Ranking');
+})->name('ranking');
+
 Route::get('/terminos-y-condiciones', function () {
     return Inertia::render('Legal/Terms');
 })->name('terms');
